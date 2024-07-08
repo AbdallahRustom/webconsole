@@ -26,6 +26,8 @@ func SendNFRegistration() error {
 	var res *http.Response
 	var err error
 
+	logger.ConsumerLog.Infof("%v", profile)
+
 	retryTime := 0
 	for {
 		nf, res, err = GetSelf().
