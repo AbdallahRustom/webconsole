@@ -14,13 +14,12 @@ import (
 )
 
 func SendNFRegistration() error {
-	ipv4address := factory.WebuiConfig.Configuration.BillingServer.HostIPv4
-	ipv4slice := []string{ipv4address}
+
 	profile := models.NfProfile{
 		NfInstanceId:  GetSelf().NfInstanceID,
 		NfType:        models.NfType_AF,
 		NfStatus:      models.NfStatus_REGISTERED,
-		Ipv4Addresses: ipv4slice,
+		Ipv4Addresses: []string{factory.WebuiConfig.Configuration.BillingServer.HostIPv4},
 		CustomInfo: map[string]interface{}{
 			"AfType": "webconsole",
 		},
