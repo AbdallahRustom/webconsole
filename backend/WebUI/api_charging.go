@@ -121,7 +121,11 @@ func GetChargingRecord(c *gin.Context) {
 
 	// Get supi of UEs
 	var uesJsonData interface{}
+	var supiDb interface{}
+	var err error
+	logger.BillingLog.Info("before if amfUris := webuiSelf.GetOamUris(models.NfType_AMF); amfUris != nil ")
 	if amfUris := webuiSelf.GetOamUris(models.NfType_AMF); amfUris != nil {
+		logger.BillingLog.Info("inside if amfUris := webuiSelf.GetOamUris(models.NfType_AMF); amfUris != nil ")
 		requestUri := fmt.Sprintf("%s/namf-oam/v1/registered-ue-context", amfUris[0])
 
 		ctx, pd, tokerErr := webui_context.GetSelf().GetTokenCtx(models.ServiceName_NAMF_OAM, models.NfType_AMF)
@@ -161,7 +165,17 @@ func GetChargingRecord(c *gin.Context) {
 		if err != nil {
 			logger.BillingLog.Error(err)
 		}
+	} else {
+		filter := bson.M{
+			"gpsi": "msisdn-",
+		}
+		supiDb, err = mongoapi.RestfulAPIGetMany(identityDataColl, filter)
+		if err != nil {
+			logger.BillingLog.Infof("Cannot find imsi")
+		}
 	}
+
+	logger.BillingLog.Info("after if amfUris := webuiSelf.GetOamUris(models.NfType_AMF); amfUris != nil ")
 
 	// build charging records
 	uesBsonA := toBsonA(uesJsonData)
@@ -178,10 +192,16 @@ func GetChargingRecord(c *gin.Context) {
 	// Use for sum all the flow-based charging, and add to the slice at the end.
 	offlineChargingSliceTypeMap := make(map[string]OfflineSliceTypeMap)
 
-	for _, ueData := range uesBsonA {
+	supiDbBson := toBsonA(supiDb)
+
+	logger.BillingLog.Info("before for _, ueData := range uesBsonA")
+
+	for _, ueData := range supiDbBson {
+		logger.BillingLog.Info("inside for _, ueData := range uesBsonA")
+		logger.BillingLog.Infof("ueData = %+v", ueData)
 		ueBsonM := toBsonM(ueData)
 
-		supi := ueBsonM["Supi"].(string)
+		supi := ueBsonM["ueId"].(string)
 
 		ratingGroupDataUsages, err := parseCDR(supi)
 		if err != nil {
@@ -189,7 +209,9 @@ func GetChargingRecord(c *gin.Context) {
 			continue
 		}
 
+		logger.BillingLog.Info("before for rg, du := range ratingGroupDataUsages")
 		for rg, du := range ratingGroupDataUsages {
+			logger.BillingLog.Info("inside for rg, du := range ratingGroupDataUsages")
 			filter := bson.M{
 				"ueId":        supi,
 				"ratingGroup": rg,
@@ -202,6 +224,8 @@ func GetChargingRecord(c *gin.Context) {
 				logger.BillingLog.Warningf("ratingGroup: %d not found in mongoapi, may change the rg id", rg)
 				continue
 			}
+
+			logger.BillingLog.Infof("chargingDataInterface: %+v", chargingDataInterface)
 
 			var chargingData ChargingData
 			err = json.Unmarshal(mapToByte(chargingDataInterface), &chargingData)
