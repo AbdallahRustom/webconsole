@@ -5,15 +5,15 @@ info:
 configuration:
   mongodb: # the mongodb connected by this webui
     name: free5gc # name of the mongodb
-    url: mongodb://localhost:27017 # a valid URL of the mongodb
-  nrfUri: http://127.0.0.10:8000 # a valid URI of NRF
+    url: mongodb://10.1.1.98:27017 # a valid URL of the mongodb
+  nrfUri: http://127.0.0.10:7777 # a valid URI of NRF
   webServer:
     scheme: http
     ipv4Address: 0.0.0.0
     port: 5000
   billingServer:
     enable: true
-    hostIPv4: 127.0.0.1
+    hostIPv4: 127.0.0.251
     listenPort: 2121
     portRange: # passive port range
       start: 2123
@@ -23,7 +23,6 @@ configuration:
     cert:
       pem: cert/chf.pem
       key: cert/chf.key
-    
 
 logger: # log output setting
   enable: true # true or false

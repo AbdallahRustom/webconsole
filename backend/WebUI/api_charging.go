@@ -162,9 +162,11 @@ func GetChargingRecord(c *gin.Context) {
 			logger.BillingLog.Error(err)
 		}
 	}
+	logger.BillingLog.Infof("uejason data: %+v", uesJsonData)
 
 	// build charging records
 	uesBsonA := toBsonA(uesJsonData)
+	logger.BillingLog.Infof("uesBsonA data: %+v", uesBsonA)
 	chargingRecordsBsonA := make([]interface{}, 0, len(uesBsonA))
 
 	type OfflineSliceTypeMap struct {
