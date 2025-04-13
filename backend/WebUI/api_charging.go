@@ -193,7 +193,6 @@ func GetChargingRecord(c *gin.Context) {
 
 	for _, ueData := range supiDbBson {
 
-		logger.BillingLog.Infof("ueData = %+v", ueData)
 		ueBsonM := toBsonM(ueData)
 
 		supi := ueBsonM["ueId"].(string)
@@ -217,7 +216,6 @@ func GetChargingRecord(c *gin.Context) {
 				logger.BillingLog.Warningf("ratingGroup: %d not found in mongoapi, may change the rg id", rg)
 				continue
 			}
-			logger.BillingLog.Infof("chargingDataInterface: %+v", chargingDataInterface)
 
 			var chargingData ChargingData
 			err = json.Unmarshal(mapToByte(chargingDataInterface), &chargingData)
