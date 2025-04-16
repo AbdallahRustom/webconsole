@@ -1,23 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { MainListItems } from "./ListItems";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { LoginContext } from "./LoginContext";
-import SimpleListMenu from "./SimpleListMenu";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const drawerWidth = 300;
 
@@ -29,45 +27,8 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+  backgroundColor: "#000000",
 }));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    "& .MuiDrawer-paper": {
-      position: "relative",
-      whiteSpace: "nowrap",
-      width: drawerWidth,
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: "border-box",
-      ...(!open && {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
 
 const mdTheme = createTheme();
 
@@ -94,8 +55,71 @@ function Dashboard(props: DashboardProps) {
   const [refreshInterval, setRefreshInterval] = useState(0);
   const [refreshString, setRefreshString] = useState("manual");
 
-  // execute every time the refreshInterval changes to set the interval correctly
-  // update the time value every x ms, which triggers refresh (see below)
+  const [userAnchorEl, setUserAnchorEl] = useState<null | HTMLElement>(null);
+  const [refreshAnchorEl, setRefreshAnchorEl] = useState<null | HTMLElement>(null);
+  const openUserMenu = Boolean(userAnchorEl);
+  const openRefreshMenu = Boolean(refreshAnchorEl);
+
+  const handleUserMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setUserAnchorEl(event.currentTarget);
+  };
+
+  const handleUserMenuClose = () => {
+    setUserAnchorEl(null);
+  };
+
+  const handleUserMenuItemClick = (index: number) => {
+    handleUserMenuClose();
+    switch (index) {
+      case 0:
+        navigation("/password");
+        break;
+      case 1:
+        navigation("/login");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleRefreshMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setRefreshAnchorEl(event.currentTarget);
+  };
+
+  const handleRefreshMenuClose = () => {
+    setRefreshAnchorEl(null);
+  };
+
+  const refreshStrings = ["manual", "1s", "5s", "10s", "60s"];
+
+  const handleRefreshMenuItemClick = (index: number) => {
+    handleRefreshMenuClose();
+    switch (index) {
+      case 0:
+        setRefreshInterval(0);
+        setRefreshString(refreshStrings[index]);
+        break;
+      case 1:
+        setRefreshInterval(1000);
+        setRefreshString(refreshStrings[index]);
+        break;
+      case 2:
+        setRefreshInterval(5000);
+        setRefreshString(refreshStrings[index]);
+        break;
+      case 3:
+        setRefreshInterval(10000);
+        setRefreshString(refreshStrings[index]);
+        break;
+      case 4:
+        setRefreshInterval(60000);
+        setRefreshString(refreshStrings[index]);
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     if (refreshInterval === 0) {
       console.log("refreshInterval is 0");
@@ -108,124 +132,132 @@ function Dashboard(props: DashboardProps) {
     };
   }, [refreshInterval]);
 
-  // refresh every time the 'time' value changes
   useEffect(() => {
     console.log("reload page at", time.toISOString());
     props.refreshAction();
   }, [time]);
 
-  const handleUserNameClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
-    switch (index) {
-      case 0:
-        navigation("/password");
-        break;
-      case 1:
-        // setUser(null);
-        navigation("/login");
-        break;
-      default:
-        break;
-    }
+  const handleRefreshClick = () => {
+    props.refreshAction();
   };
 
-  const refreshStrings = ["manual", "1s", "5s", "10s", "30s"];
-
-  const handleRefreshClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
-    switch (index) {
-      case 0: // manual
-        setRefreshInterval(0);
-        setRefreshString(refreshStrings.at(index)!);
-        break;
-      case 1: // 1s
-        setRefreshInterval(1000);
-        setRefreshString(refreshStrings.at(index)!);
-        break;
-      case 2: // 5s
-        setRefreshInterval(5000);
-        setRefreshString(refreshStrings.at(index)!);
-        break;
-      case 3: // 10s
-        setRefreshInterval(10000);
-        setRefreshString(refreshStrings.at(index)!);
-        break;
-      case 4: // 30s
-        setRefreshInterval(30000);
-        setRefreshString(refreshStrings.at(index)!);
-        break;
-      default:
-        break;
-    }
-  };
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <Sidebar isOpen={open} />
+        <AppBar position="absolute">
           <Toolbar
             sx={{
-              pr: "24px", // keep right padding when drawer closed
+              pr: "24px",
             }}
           >
             <IconButton
               edge="start"
               color="inherit"
-              aria-label="open drawer"
+              aria-label="toggle sidebar"
               onClick={toggleDrawer}
               sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
+                marginRight: "12px",
               }}
             >
               <MenuIcon />
             </IconButton>
+            <img
+              src="./orange_logo.svg"
+              alt="Orange Logo"
+              style={{
+                height: "42px",
+                marginRight: "20px",
+                // Removed the filter temporarily to see if that's causing issues
+                // filter: 'brightness(0) invert(1)'
+              }}
+            />
             <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-              <Typography component="h1" variant="h6" color="inherit" noWrap>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ fontSize: "1.5rem" }} // Increase size from default h6
+              >
                 {props.title}
               </Typography>
-              <Divider
-                orientation="vertical"
-                flexItem
+              <Box
+                component="div"
+                onClick={handleRefreshMenuOpen}
+                aria-controls={openRefreshMenu ? "refresh-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openRefreshMenu ? "true" : undefined}
                 sx={{
-                  //height: "100%",
-                  //alignSelf: "center",
-                  mx: 2,
-                  borderColor: "white",
+                  ml: 2,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "6px 12px",
+                  borderRadius: 1,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  },
                 }}
-              />
-              <SimpleListMenu
-                title={`Refresh: ${refreshString}`}
-                options={refreshStrings}
-                handleMenuItemClick={handleRefreshClick}
-              />
+              >
+                <Typography variant="body1" color="inherit">
+                  Refresh: {refreshString}
+                </Typography>
+              </Box>
+              <Menu
+                id="refresh-menu"
+                anchorEl={refreshAnchorEl}
+                open={openRefreshMenu}
+                onClose={handleRefreshMenuClose}
+                MenuListProps={{
+                  "aria-labelledby": "refresh-button",
+                }}
+              >
+                {refreshStrings.map((option, index) => (
+                  <MenuItem
+                    key={option}
+                    selected={option === refreshString}
+                    onClick={() => handleRefreshMenuItemClick(index)}
+                  >
+                    {option}
+                  </MenuItem>
+                ))}
+              </Menu>
             </Box>
-            <SimpleListMenu
-              title={user?.username}
-              options={["Change Password", "Logout"]}
-              handleMenuItemClick={handleUserNameClick}
-            />
+            <IconButton
+              onClick={handleUserMenuClick}
+              size="small"
+              aria-controls={openUserMenu ? "user-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={openUserMenu ? "true" : undefined}
+              sx={{ ml: 2 }}
+            >
+              <Avatar
+                sx={{
+                  width: 36,
+                  height: 36,
+                  bgcolor: "primary.main",
+                  color: "white",
+                }}
+              >
+                {user?.username?.charAt(0)?.toUpperCase() || "U"}
+              </Avatar>
+            </IconButton>
+            <Menu
+              id="user-menu"
+              anchorEl={userAnchorEl}
+              open={openUserMenu}
+              onClose={handleUserMenuClose}
+              MenuListProps={{
+                "aria-labelledby": "user-button",
+              }}
+            >
+              <MenuItem onClick={() => handleUserMenuItemClick(0)}>Change Password</MenuItem>
+              <MenuItem onClick={() => handleUserMenuItemClick(1)}>Logout</MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <MainListItems />
-            <Divider sx={{ my: 1 }} />
-            {/* Moved to drop down menu */}
-            {/* <Logout /> */}
-          </List>
-        </Drawer>
         <Box
           component="main"
           sx={{

@@ -60,7 +60,7 @@ export default function ChargingTable() {
   };
 
   return (
-    <Dashboard title="UE CHARGING" refreshAction={() => onRefresh()}>
+    <Dashboard title="UE Charging" refreshAction={() => onRefresh()}>
       <Grid container spacing="2">
         <Grid item>
           <Button

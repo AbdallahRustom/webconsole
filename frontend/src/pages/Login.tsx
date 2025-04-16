@@ -52,7 +52,10 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          <img src="/free5gc_logo.png" className="App-logo" alt="logo" />
+          <img src="/orange_logo.svg" className="App-logo" alt="Orange logo" style={{ maxWidth: '150px', marginBottom: '1rem' }} />
+          <Typography variant="subtitle1" gutterBottom>
+            Web View
+          </Typography>
           <br />
           <Typography component="h1" variant="h6" color="red">
             {error}

@@ -1,0 +1,56 @@
+.sidebar {
+  position: fixed; /* float above layout */
+  top: 0;
+  left: -250px; /* hidden by default */
+  width: 250px;
+  height: 100%;
+  background-color: #000;
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease; /* Corrected transition property */
+  z-index: 1025; /* Ensure it's above AppBar if needed, AppBar zIndex is drawer+1 */
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.sidebar.open {
+  left: 0; /* visible when toggled */
+}
+
+/* Removed close-btn as per original code */
+
+.sidebarBrandText {
+  color: white;
+  font-weight: 100;
+  transition: color 0.3s ease;
+  font-family: Helvetica, sans-serif; /* Added fallback font */
+  text-decoration: none; /* Remove default underline from NavLink */
+  display: block; /* Ensure proper spacing */
+  margin-bottom: 1rem; /* Add some spacing */
+  width: 100%; /* Allow text to span width for alignment */
+}
+
+.sidebarBrandText:hover {
+  color: orange;
+}
+
+.sidebar_comp {
+  padding-top: 80px; /* Keep space for AppBar */
+  width: 100%;
+}
+
+.activeNav {
+  color: orange !important; /* Use important to override default NavLink style */
+  font-weight: bold; /* Make active link more prominent */
+  /* text-decoration: underline; Removed underline as it might look dated */
+}
+
+/* Added style for the container div inside sidebar_comp */
+.navContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+} 

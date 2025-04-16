@@ -322,7 +322,7 @@ function WithDashboard(Component: React.ComponentType<any>) {
     const [refresh, setRefresh] = useState<boolean>(false);
 
     return (
-      <Dashboard title="SUBSCRIBER" refreshAction={() => setRefresh(!refresh)}>
+      <Dashboard title="Subscriber" refreshAction={() => setRefresh(!refresh)}>
         <Component {...props} refresh={refresh} setRefresh={(v: boolean) => setRefresh(v)} />
       </Dashboard>
     );
