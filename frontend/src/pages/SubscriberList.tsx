@@ -206,11 +206,9 @@ function SubscriberList(props: Props) {
           No Subscription
           <br />
           <br />
-          <Grid item xs={12}>
-            <Button color="primary" variant="contained" onClick={() => onCreate()} sx={{ m: 1 }}>
-              CREATE
-            </Button>
-          </Grid>
+          <Button variant="contained" onClick={() => onCreate()} sx={{ m: 2, background: "black" }}>
+            CREATE
+          </Button>
         </div>
       </>
     );
@@ -272,7 +270,7 @@ function SubscriberList(props: Props) {
                 <TableCell>{row.ueId}</TableCell>
                 <TableCell>
                   <Button
-                    color="primary"
+                    sx={{ background: "black" }}
                     variant="contained"
                     onClick={() => onDelete(row.ueId!, row.plmnID!)}
                   >
@@ -280,12 +278,20 @@ function SubscriberList(props: Props) {
                   </Button>
                 </TableCell>
                 <TableCell>
-                  <Button color="primary" variant="contained" onClick={() => handleModify(row)}>
+                  <Button
+                    variant="contained"
+                    sx={{ background: "black" }}
+                    onClick={() => handleModify(row)}
+                  >
                     VIEW
                   </Button>
                 </TableCell>
                 <TableCell>
-                  <Button color="primary" variant="contained" onClick={() => handleEdit(row)}>
+                  <Button
+                    sx={{ background: "black" }}
+                    variant="contained"
+                    onClick={() => handleEdit(row)}
+                  >
                     EDIT
                   </Button>
                 </TableCell>
@@ -296,7 +302,7 @@ function SubscriberList(props: Props) {
       </Table>
       {pager()}
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={() => onCreate()} sx={{ m: 1 }}>
+        <Button variant="contained" onClick={() => onCreate()} sx={{ m: 1, background: "black" }}>
           CREATE
         </Button>
       </Grid>
