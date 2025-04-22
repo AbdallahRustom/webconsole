@@ -162,7 +162,7 @@ func (a *WebuiApp) Start(tlsKeyLogPath string) {
 	if webServer != nil {
 		addr = webServer.IP + ":" + webServer.PORT
 	} else {
-		addr = ":5000"
+		addr = "127.0.0.1:5000"
 	}
 
 	a.server = &http.Server{
