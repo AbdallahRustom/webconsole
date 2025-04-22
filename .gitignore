@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Swap files
 *.swp
 
@@ -34,3 +35,41 @@ cscope.*
 
 # Binary
 webconsole
+=======
+# Swap files
+*.swp
+
+# Toolchain
+# Golang project folder
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Build
+bin/
+log/
+vendor/
+
+
+node_modules/
+yarn.lock
+
+# emacs/vim
+GPATH
+GRTAGS
+GTAGS
+TAGS
+tags
+cscope.*
+
+# macOS
+.DS_Store
+
+# Debug
+*.log
+*.pcap
+
+# Binary
+webconsole
+>>>>>>> b299e4467bff4303eb149e994635d4a0d7a6b119
