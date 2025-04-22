@@ -32,7 +32,7 @@ export default function UserUpdate() {
     uid: string;
   }>();
   const navigation = useNavigate();
-  const [user, setUser] = useState<User>({email: "", encryptedPassword: ""});
+  const [user, setUser] = useState<User>({ email: "", encryptedPassword: "" });
 
   const [password, setPassword] = useState<Password>({});
 
@@ -138,7 +138,7 @@ export default function UserUpdate() {
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                       >
-				    {showPassword ? <Visibility /> : <VisibilityOff />}
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
                       </IconButton>
                     </InputAdornment>
                   ),
@@ -165,7 +165,7 @@ export default function UserUpdate() {
                         onClick={handleClickShowPasswordConfirm}
                         onMouseDown={handleMouseDownPasswordConfirm}
                       >
-				    {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
+                        {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
                       </IconButton>
                     </InputAdornment>
                   ),
@@ -177,7 +177,12 @@ export default function UserUpdate() {
       </Table>
       <br />
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={onUpdate} sx={{ m: 1 }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={onUpdate}
+          sx={{ m: 1, background: "black" }}
+        >
           Update
         </Button>
       </Grid>

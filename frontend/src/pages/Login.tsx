@@ -81,7 +81,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, backgroundColor: 'black' }}>
               Sign In
             </Button>
           </Box>

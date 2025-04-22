@@ -67,7 +67,7 @@ export default function ChargingTable() {
             color="secondary"
             variant="contained"
             onClick={() => onExpand()}
-            sx={{ m: 2, backgroundColor: "blue", "&:hover": { backgroundColor: "blue" } }}
+            sx={{ m: 2, backgroundColor: "black", "&:hover": { backgroundColor: "black" } }}
           >
             {expand ? "Fold" : "Expand"}
           </Button>
@@ -77,13 +77,13 @@ export default function ChargingTable() {
             color="secondary"
             variant="contained"
             onClick={() => onRefresh()}
-            sx={{ m: 2, backgroundColor: "blue", "&:hover": { backgroundColor: "blue" } }}
+            sx={{ m: 2, backgroundColor: "black", "&:hover": { backgroundColor: "black" } }}
           >
             Refresh
           </Button>
         </Grid>
         <Grid item>
-          <Button color="success" variant="contained" sx={{ m: 2 }} disabled>
+          <Button color="success" variant="contained" sx={{ m: 2, background: "black" }} disabled>
             Last update: {updateTime.toISOString().slice(0, 19).replace("T", " ")}
           </Button>
         </Grid>

@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import axios from "../axios";
-import {
-  Nssai,
-  Profile,
-  DnnConfiguration,
-} from "../api/api";
+import { Nssai, Profile, DnnConfiguration } from "../api/api";
 
 import Dashboard from "../Dashboard";
 import {
@@ -102,15 +98,15 @@ export default function ProfileRead() {
 
   return (
     <Dashboard title="Profile" refreshAction={() => {}}>
-      <Grid 
-        item 
-        xs={12} 
-        sx={{ 
-          display: 'flex', 
-          justifyContent: 'flex-end' 
+      <Grid
+        item
+        xs={12}
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
         }}
       >
-        <Button color="primary" variant="contained" onClick={handleEdit} sx={{ m: 1 }}>
+        <Button variant="contained" onClick={handleEdit} sx={{ m: 1, background: "black" }}>
           EDIT
         </Button>
       </Grid>

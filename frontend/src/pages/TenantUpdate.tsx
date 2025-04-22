@@ -70,7 +70,7 @@ export default function TenantUpdate() {
       </Table>
       <br />
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={onUpdate} sx={{ m: 1 }}>
+        <Button color="primary" variant="contained" onClick={onUpdate} sx={{ m: 1,  backgroundColor: 'black' }}>
           Update
         </Button>
       </Grid>

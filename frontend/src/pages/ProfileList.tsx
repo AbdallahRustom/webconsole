@@ -130,8 +130,8 @@ function ProfileList(props: Props) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = filteredData.map(row => ({
-        profileName: row.toString()
+      const newSelected = filteredData.map((row) => ({
+        profileName: row.toString(),
       }));
       setSelected(newSelected);
       return;
@@ -140,9 +140,7 @@ function ProfileList(props: Props) {
   };
 
   const handleClick = (item: MultipleDeleteProfileData) => {
-    const selectedIndex = selected.findIndex(
-      s => s.profileName === item.profileName
-    );
+    const selectedIndex = selected.findIndex((s) => s.profileName === item.profileName);
     let newSelected: MultipleDeleteProfileData[] = [];
 
     if (selectedIndex === -1) {
@@ -161,22 +159,21 @@ function ProfileList(props: Props) {
     setSelected(newSelected);
   };
 
-  const isSelected = (item: MultipleDeleteProfileData) => 
-    selected.some(s => s.profileName === item.profileName);
+  const isSelected = (item: MultipleDeleteProfileData) =>
+    selected.some((s) => s.profileName === item.profileName);
 
   const onDeleteSelected = () => {
-    const selectedItems = selected.map(item => 
-      `Profile Name: ${item.profileName}`
-    );
+    const selectedItems = selected.map((item) => `Profile Name: ${item.profileName}`);
 
-    const confirmMessage = `Are you sure you want to delete the following profiles?\n\n${selectedItems.join('\n')}`;
+    const confirmMessage = `Are you sure you want to delete the following profiles?\n\n${selectedItems.join("\n")}`;
     const result = window.confirm(confirmMessage);
     if (!result) {
       return;
     }
 
     const data = formatMultipleDeleteProfileToJson(selected);
-    axios.delete("/api/profile", { data })
+    axios
+      .delete("/api/profile", { data })
       .then(() => {
         props.setRefresh(!props.refresh);
         setSelected([]);
@@ -196,7 +193,11 @@ function ProfileList(props: Props) {
           <br />
           <br />
           <Grid item xs={12}>
-            <Button color="primary" variant="contained" onClick={() => onCreate()} sx={{ m: 1 }}>
+            <Button
+              variant="contained"
+              onClick={() => onCreate()}
+              sx={{ m: 1, background: "black" }}
+            >
               CREATE
             </Button>
           </Grid>
@@ -218,11 +219,7 @@ function ProfileList(props: Props) {
       />
       {selected.length > 0 && (
         <Box sx={{ mb: 2 }}>
-          <Button
-            color="error"
-            variant="contained"
-            onClick={onDeleteSelected}
-          >
+          <Button color="error" variant="contained" onClick={onDeleteSelected}>
             Delete Selected ({selected.length})
           </Button>
         </Box>
@@ -249,7 +246,7 @@ function ProfileList(props: Props) {
             const item = { profileName: row.toString() };
             const isItemSelected = isSelected(item);
             return (
-              <TableRow 
+              <TableRow
                 key={index}
                 hover
                 onClick={() => handleClick(item)}
@@ -258,10 +255,7 @@ function ProfileList(props: Props) {
                 selected={isItemSelected}
               >
                 <TableCell padding="checkbox">
-                  <Checkbox
-                    color="primary"
-                    checked={isItemSelected}
-                  />
+                  <Checkbox color="primary" checked={isItemSelected} />
                 </TableCell>
                 <TableCell>{row.toString()}</TableCell>
                 <TableCell>
@@ -274,12 +268,20 @@ function ProfileList(props: Props) {
                   </Button>
                 </TableCell>
                 <TableCell>
-                  <Button color="primary" variant="contained" onClick={() => handleModify(row.toString())}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => handleModify(row.toString())}
+                  >
                     VIEW
                   </Button>
                 </TableCell>
                 <TableCell>
-                  <Button color="primary" variant="contained" onClick={() => handleEdit(row.toString())}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => handleEdit(row.toString())}
+                  >
                     EDIT
                   </Button>
                 </TableCell>

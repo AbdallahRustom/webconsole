@@ -160,7 +160,12 @@ export default function UserCreate() {
       </Table>
       <br />
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={handleCreate} sx={{ m: 1 }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleCreate}
+          sx={{ m: 1, background: "black" }}
+        >
           CREATE
         </Button>
       </Grid>

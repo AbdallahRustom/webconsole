@@ -23,7 +23,10 @@ import {
   Checkbox,
 } from "@mui/material";
 import { ReportProblemRounded } from "@mui/icons-material";
-import { MultipleDeleteSubscriberData, formatMultipleDeleteSubscriberToJson } from "../lib/jsonFormating";
+import {
+  MultipleDeleteSubscriberData,
+  formatMultipleDeleteSubscriberToJson,
+} from "../lib/jsonFormating";
 
 interface Props {
   refresh: boolean;
@@ -124,9 +127,10 @@ function SubscriberList(props: Props) {
     navigation("/subscriber/create/" + subscriber.ueId + "/" + subscriber.plmnID);
   };
 
-  const filteredData = data.filter((subscriber) =>
-    subscriber.ueId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    subscriber.plmnID?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data.filter(
+    (subscriber) =>
+      subscriber.ueId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      subscriber.plmnID?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,9 +139,9 @@ function SubscriberList(props: Props) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = filteredData.map(row => ({
+      const newSelected = filteredData.map((row) => ({
         ueId: row.ueId!,
-        plmnID: row.plmnID!
+        plmnID: row.plmnID!,
       }));
       setSelected(newSelected);
       return;
@@ -147,7 +151,7 @@ function SubscriberList(props: Props) {
 
   const handleClick = (item: MultipleDeleteSubscriberData) => {
     const selectedIndex = selected.findIndex(
-      s => s.ueId === item.ueId && s.plmnID === item.plmnID
+      (s) => s.ueId === item.ueId && s.plmnID === item.plmnID,
     );
     let newSelected: MultipleDeleteSubscriberData[] = [];
 
@@ -167,16 +171,14 @@ function SubscriberList(props: Props) {
     setSelected(newSelected);
   };
 
-  const isSelected = (item: MultipleDeleteSubscriberData) => 
-    selected.some(s => s.ueId === item.ueId && s.plmnID === item.plmnID);
+  const isSelected = (item: MultipleDeleteSubscriberData) =>
+    selected.some((s) => s.ueId === item.ueId && s.plmnID === item.plmnID);
 
   const onDeleteSelected = () => {
-    const selectedItems = selected.map(item => 
-      `PLMN: ${item.plmnID}\tUE ID: ${item.ueId}`
-    );
+    const selectedItems = selected.map((item) => `PLMN: ${item.plmnID}\tUE ID: ${item.ueId}`);
 
-    const confirmMessage = `Are you sure you want to delete the following subscribers?\n\n${selectedItems.join('\n')}`;
-    
+    const confirmMessage = `Are you sure you want to delete the following subscribers?\n\n${selectedItems.join("\n")}`;
+
     const result = window.confirm(confirmMessage);
     if (!result) {
       return;
@@ -184,7 +186,8 @@ function SubscriberList(props: Props) {
 
     const data = formatMultipleDeleteSubscriberToJson(selected);
 
-    axios.delete("/api/subscriber", { data })
+    axios
+      .delete("/api/subscriber", { data })
       .then(() => {
         props.setRefresh(!props.refresh);
         setSelected([]);
@@ -210,7 +213,7 @@ function SubscriberList(props: Props) {
           </Grid>
         </div>
       </>
-    )
+    );
   }
 
   return (
@@ -225,12 +228,8 @@ function SubscriberList(props: Props) {
         margin="normal"
       />
       {selected.length > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <Button
-            color="error"
-            variant="contained"
-            onClick={onDeleteSelected}
-          >
+        <Box sx={{ mb: 2, background: "black" }}>
+          <Button color="error" variant="contained" onClick={onDeleteSelected}>
             Delete Selected ({selected.length})
           </Button>
         </Box>
@@ -258,7 +257,7 @@ function SubscriberList(props: Props) {
             const item = { ueId: row.ueId!, plmnID: row.plmnID! };
             const isItemSelected = isSelected(item);
             return (
-              <TableRow 
+              <TableRow
                 key={index}
                 hover
                 onClick={() => handleClick(item)}
@@ -267,10 +266,7 @@ function SubscriberList(props: Props) {
                 selected={isItemSelected}
               >
                 <TableCell padding="checkbox">
-                  <Checkbox
-                    color="primary"
-                    checked={isItemSelected}
-                  />
+                  <Checkbox color="primary" checked={isItemSelected} />
                 </TableCell>
                 <TableCell>{row.plmnID}</TableCell>
                 <TableCell>{row.ueId}</TableCell>

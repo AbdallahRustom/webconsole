@@ -97,7 +97,7 @@ export default function TenantList() {
   const createButton = () => {
     return (
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={() => onCreate()} sx={{ m: 1 }}>
+        <Button variant="contained" onClick={() => onCreate()} sx={{ m: 1, background: "black" }}>
           CREATE
         </Button>
       </Grid>
@@ -123,12 +123,26 @@ export default function TenantList() {
                 <Link to={"/tenant/" + row.tenantId + "/user"}>{row.tenantName}</Link>
               </TableCell>
               <TableCell>
-                <Button color="primary" variant="contained" onClick={() => onDelete(row.tenantId)}>
+                <Button
+                  variant="contained"
+                  onClick={() => onDelete(row.tenantId)}
+                  sx={{
+                    backgroundColor: "black",
+                    color: "white",
+                  }}
+                >
                   DELETE
                 </Button>
               </TableCell>
               <TableCell>
-                <Button color="primary" variant="contained" onClick={() => onModify(row.tenantId)}>
+                <Button
+                  variant="contained"
+                  onClick={() => onModify(row.tenantId)}
+                  sx={{
+                    backgroundColor: "black",
+                    color: "white",
+                  }}
+                >
                   MODIFY
                 </Button>
               </TableCell>

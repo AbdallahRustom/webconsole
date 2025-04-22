@@ -10,7 +10,7 @@ import { Button, Grid, TextField, Table, TableBody, TableCell, TableRow } from "
 
 export default function TenantCreate() {
   const navigation = useNavigate();
-  const [tenant, setTenant] = useState<Tenant>({tenantName: ""});
+  const [tenant, setTenant] = useState<Tenant>({ tenantName: "" });
 
   const handleCreate = () => {
     console.log("Create");
@@ -51,7 +51,12 @@ export default function TenantCreate() {
       </Table>
       <br />
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={handleCreate} sx={{ m: 1 }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleCreate}
+          sx={{ m: 1, background: "black" }}
+        >
           CREATE
         </Button>
       </Grid>
