@@ -117,10 +117,12 @@ func GetChargingRecord(c *gin.Context) {
 	}
 
 	webuiSelf := webui_context.GetSelf()
-	webuiSelf.UpdateNfProfiles()
+	// webuiSelf.UpdateNfProfiles()
 
 	// Get supi of UEs
 	var uesJsonData interface{}
+	var supiDb interface{}
+	var err error
 	if amfUris := webuiSelf.GetOamUris(models.NrfNfManagementNfType_AMF); amfUris != nil {
 		requestUri := fmt.Sprintf("%s/namf-oam/v1/registered-ue-context", amfUris[0])
 
@@ -162,6 +164,15 @@ func GetChargingRecord(c *gin.Context) {
 		if err != nil {
 			logger.BillingLog.Error(err)
 		}
+	} else {
+
+		filter := bson.M{
+			"gpsi": "msisdn-",
+		}
+		supiDb, err = mongoapi.RestfulAPIGetMany(identityDataColl, filter)
+		if err != nil {
+			logger.BillingLog.Infof("Cannot find imsi")
+		}
 	}
 
 	// build charging records
@@ -178,11 +189,13 @@ func GetChargingRecord(c *gin.Context) {
 	}
 	// Use for sum all the flow-based charging, and add to the slice at the end.
 	offlineChargingSliceTypeMap := make(map[string]OfflineSliceTypeMap)
+	supiDbBson := toBsonA(supiDb)
 
-	for _, ueData := range uesBsonA {
+	for _, ueData := range supiDbBson {
+
 		ueBsonM := toBsonM(ueData)
 
-		supi := ueBsonM["Supi"].(string)
+		supi := ueBsonM["ueId"].(string)
 
 		ratingGroupDataUsages, err := parseCDR(supi)
 		if err != nil {
