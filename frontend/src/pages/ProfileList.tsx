@@ -196,7 +196,7 @@ function ProfileList(props: Props) {
             <Button
               variant="contained"
               onClick={() => onCreate()}
-              sx={{ m: 1, background: "black" }}
+              sx={{ m: 1, backgroundColor: "black" }}
             >
               CREATE
             </Button>
@@ -260,7 +260,7 @@ function ProfileList(props: Props) {
                 <TableCell>{row.toString()}</TableCell>
                 <TableCell>
                   <Button
-                    color="primary"
+                    sx={{ m: 1, backgroundColor: "black" }}
                     variant="contained"
                     onClick={() => onDelete(row.toString())}
                   >
@@ -292,7 +292,7 @@ function ProfileList(props: Props) {
       </Table>
       {pager()}
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={() => onCreate()} sx={{ m: 1 }}>
+        <Button variant="contained" onClick={() => onCreate()} sx={{ m: 1, backgroundColor: "black" }}>
           CREATE
         </Button>
       </Grid>

@@ -148,7 +148,7 @@ function ProfileCreate() {
 
         <br />
         <Grid item xs={12}>
-          <Button variant="contained" type="submit" sx={{ m: 1, backgroundColor: "black" }}>
+          <Button color="primary" variant="contained" type="submit" sx={{ m: 1 }}>
             {formSubmitText}
           </Button>
         </Grid>

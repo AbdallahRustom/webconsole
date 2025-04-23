@@ -55,7 +55,7 @@ export default function TenantCreate() {
           color="primary"
           variant="contained"
           onClick={handleCreate}
-          sx={{ m: 1, background: "black" }}
+          sx={{ m: 1, backgroundColor: "black" }}
         >
           CREATE
         </Button>
