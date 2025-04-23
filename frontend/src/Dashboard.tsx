@@ -164,7 +164,7 @@ function Dashboard(props: DashboardProps) {
               <MenuIcon />
             </IconButton>
             <img
-              src="./orange_logo.svg"
+              src="/orange_logo.svg"
               alt="Orange Logo"
               style={{
                 height: "42px",

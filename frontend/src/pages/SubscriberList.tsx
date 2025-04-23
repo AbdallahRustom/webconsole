@@ -206,7 +206,7 @@ function SubscriberList(props: Props) {
           No Subscription
           <br />
           <br />
-          <Button variant="contained" onClick={() => onCreate()} sx={{ m: 2, background: "black" }}>
+          <Button variant="contained" onClick={() => onCreate()} sx={{ m: 2, backgroundColor: "black" }}>
             CREATE
           </Button>
         </div>
@@ -270,7 +270,7 @@ function SubscriberList(props: Props) {
                 <TableCell>{row.ueId}</TableCell>
                 <TableCell>
                   <Button
-                    sx={{ background: "black" }}
+                    sx={{ backgroundColor: "black" }}
                     variant="contained"
                     onClick={() => onDelete(row.ueId!, row.plmnID!)}
                   >
@@ -302,7 +302,7 @@ function SubscriberList(props: Props) {
       </Table>
       {pager()}
       <Grid item xs={12}>
-        <Button variant="contained" onClick={() => onCreate()} sx={{ m: 1, background: "black" }}>
+        <Button variant="contained" onClick={() => onCreate()} sx={{ m: 1, backgroundColor: "black" }}>
           CREATE
         </Button>
       </Grid>

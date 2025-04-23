@@ -251,12 +251,7 @@ function SubscriberCreate() {
 
         <br />
         <Grid item xs={12}>
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            sx={{ m: 1, background: "black" }}
-          >
+          <Button variant="contained" type="submit" sx={{ m: 1, backgroundColor: "black" }}>
             {formSubmitText}
           </Button>
         </Grid>
