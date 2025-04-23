@@ -101,7 +101,11 @@ export default function UserList() {
   const createButton = () => {
     return (
       <Grid item xs={12}>
-        <Button color="primary" variant="contained" onClick={() => onCreate()} sx={{ m: 1 }}>
+        <Button
+          variant="contained"
+          onClick={() => onCreate()}
+          sx={{ m: 1, backgroundColor: "black" }}
+        >
           CREATE
         </Button>
       </Grid>
@@ -125,12 +129,20 @@ export default function UserList() {
               <TableCell>{row.userId}</TableCell>
               <TableCell>{row.email}</TableCell>
               <TableCell>
-                <Button color="primary" variant="contained" onClick={() => onDelete(row.userId)}>
+                <Button
+                  sx={{ backgroundColor: "black" }}
+                  variant="contained"
+                  onClick={() => onDelete(row.userId)}
+                >
                   DELETE
                 </Button>
               </TableCell>
               <TableCell>
-                <Button color="primary" variant="contained" onClick={() => onModify(row.userId)}>
+                <Button
+                  sx={{ backgroundColor: "black" }}
+                  variant="contained"
+                  onClick={() => onModify(row.userId)}
+                >
                   MODIFY
                 </Button>
               </TableCell>

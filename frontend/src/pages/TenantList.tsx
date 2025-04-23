@@ -120,7 +120,9 @@ export default function TenantList() {
             <TableRow key={row.tenantId}>
               <TableCell>{row.tenantId}</TableCell>
               <TableCell>
-                <Link to={"/tenant/" + row.tenantId + "/user"}>{row.tenantName}</Link>
+                <Link to={"/tenant/" + row.tenantId + "/user"} style={{ color: "black" }}>
+                  {row.tenantName}
+                </Link>
               </TableCell>
               <TableCell>
                 <Button

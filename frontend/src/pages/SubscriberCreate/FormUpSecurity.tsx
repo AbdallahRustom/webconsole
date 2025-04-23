@@ -44,7 +44,11 @@ function NoUpSecurity(props: FormUpSecurityProps) {
         <TableBody>
           <TableRow>
             <TableCell>
-              <Button color="secondary" variant="contained" onClick={onUpSecurity} sx={{ m: 0 }}>
+              <Button
+                variant="contained"
+                onClick={onUpSecurity}
+                sx={{ m: 0, backgroundColor: "black" }}
+              >
                 +UP SECURITY
               </Button>
             </TableCell>
@@ -146,7 +150,7 @@ export default function FormUpSecurity(props: FormUpSecurityProps) {
                           <MenuItem value="NOT_NEEDED">NOT_NEEDED</MenuItem>
                           <MenuItem value="PREFERRED">PREFERRED</MenuItem>
                           <MenuItem value="REQUIRED">REQUIRED</MenuItem>
-                        </Select>    
+                        </Select>
                       )}
                     />
                   </FormControl>

@@ -251,10 +251,9 @@ export default function FormFlowRule({ snssaiIndex, dnn, snssai }: FormFlowRuleP
           <TableRow>
             <TableCell>
               <Button
-                color="secondary"
                 variant="outlined"
                 onClick={() => appendFlowRule(defaultFlowRule())}
-                sx={{ m: 0 }}
+                sx={{ m: 0, color: "black", borderColor: "black" }}
               >
                 +FLOW RULE
               </Button>

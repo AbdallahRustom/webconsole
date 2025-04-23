@@ -14,13 +14,13 @@ import { ProfileMapperImpl, FlowsMapperImpl } from "../../lib/dtos/profile";
 import { validateMBRGreaterThanGBR } from "../../lib/utils";
 
 function FormHOC(Component: React.ComponentType<any>) {
-    return function (props: any) {
-        return (
-            <ProfileFormProvider>
-                <Component {...props} />
-            </ProfileFormProvider>
-        );
-    };
+  return function (props: any) {
+    return (
+      <ProfileFormProvider>
+        <Component {...props} />
+      </ProfileFormProvider>
+    );
+  };
 }
 
 export default FormHOC(ProfileCreate);
@@ -129,32 +129,30 @@ function ProfileCreate() {
       });
   };
 
-    const formSubmitFn = isNewProfile ? onCreate : onUpdate;
-    const formSubmitText = isNewProfile ? "CREATE" : "UPDATE";
+  const formSubmitFn = isNewProfile ? onCreate : onUpdate;
+  const formSubmitText = isNewProfile ? "CREATE" : "UPDATE";
 
-    return (
+  return (
     <Dashboard title="Profile" refreshAction={() => {}}>
-        <form
-            onSubmit={handleSubmit(formSubmitFn, (err: any) => {
-                console.log("form error: ", err);
-            })}
-        >
+      <form
+        onSubmit={handleSubmit(formSubmitFn, (err: any) => {
+          console.log("form error: ", err);
+        })}
+      >
+        <ProfileFormBasic />
 
-            <ProfileFormBasic />
+        <h3>Profile UE AMBR</h3>
+        <ProfileFormUeAmbr />
 
-            <h3>Profile UE AMBR</h3>
-            <ProfileFormUeAmbr />
-
-            <ProfileFormSessions />
+        <ProfileFormSessions />
 
         <br />
         <Grid item xs={12}>
-            <Button color="primary" variant="contained" type="submit" sx={{ m: 1 }}>
-                {formSubmitText}
-            </Button>
-            </Grid>
-        </form>
+          <Button variant="contained" type="submit" sx={{ m: 1, backgroundColor: "black" }}>
+            {formSubmitText}
+          </Button>
+        </Grid>
+      </form>
     </Dashboard>
-    );
+  );
 }
-

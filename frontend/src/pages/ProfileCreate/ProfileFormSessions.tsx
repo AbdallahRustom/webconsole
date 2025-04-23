@@ -249,10 +249,9 @@ export default function ProfileFormSessions() {
               <Grid item xs={2} id={toHex(row.sst) + row.sd + "-AddDNNButtonArea"}>
                 <Box display="flex" justifyContent="flex-end">
                   <Button
-                    color="secondary"
                     variant="contained"
                     onClick={() => onDnnAdd(index)}
-                    sx={{ m: 3 }}
+                    sx={{ m: 3, backgroundColor: "black" }}
                   >
                     &nbsp;&nbsp;+DNN&nbsp;&nbsp;
                   </Button>
@@ -266,10 +265,9 @@ export default function ProfileFormSessions() {
       <br />
       <Grid item xs={12}>
         <Button
-          color="secondary"
           variant="contained"
           onClick={() => appendSnssaiConfiguration(defaultSnssaiConfiguration())}
-          sx={{ m: 1 }}
+          sx={{ m: 1, backgroundColor: "black" }}
         >
           +SNSSAI
         </Button>

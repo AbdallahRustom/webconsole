@@ -310,8 +310,8 @@ export default function SubscriberFormSessions() {
                               }
                               sx={{
                                 m: 2,
-                                backgroundColor: "blue",
-                                "&:hover": { backgroundColor: "#7496c2" },
+                                backgroundColor: "black",
+                                "&:hover": { backgroundColor: "black" },
                               }}
                               disabled={row.dnnConfigurations[dnn].staticIpv4Address?.length == 0}
                             >
@@ -348,10 +348,9 @@ export default function SubscriberFormSessions() {
               <Grid item xs={2} id={toHex(row.sst) + row.sd + "-AddDNNButtonArea"}>
                 <Box display="flex" justifyContent="flex-end">
                   <Button
-                    color="secondary"
                     variant="contained"
                     onClick={() => onDnnAdd(index)}
-                    sx={{ m: 3 }}
+                    sx={{ m: 3, backgroundColor: "black" }}
                   >
                     &nbsp;&nbsp;+DNN&nbsp;&nbsp;
                   </Button>
@@ -365,10 +364,9 @@ export default function SubscriberFormSessions() {
       <br />
       <Grid item xs={12}>
         <Button
-          color="secondary"
           variant="contained"
           onClick={() => appendSnssaiConfiguration(defaultSnssaiConfiguration())}
-          sx={{ m: 1 }}
+          sx={{ m: 1, backgroundColor: "black" }}
         >
           +SNSSAI
         </Button>
